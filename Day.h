@@ -8,6 +8,7 @@ public:
   Day(int x){day = x;size = 0;}
   ~Day();
   int get_day(){return day;}
+  int get_size(){return size;}
   Day* move_next(){return next;}
   void add_next(Day* n){next = n;}
   ////////////////////////////////////////////////
@@ -15,7 +16,6 @@ public:
     people* t = ppl_head;
     if(ppl_head == NULL){
       size = size+1;
-      p->set_queue(size);
       ppl_head = p;
       return;
     }
@@ -23,25 +23,42 @@ public:
       t->move_next();
     }
     size = size+1;
-    p->set_queue(size);
     t->add_next(p);
   }
   //////////////////////////////////////////
-  people* pop(){
+  void pop(){
     people* t = ppl_head;
-    people* re = t;
     ppl_head = t->move_next();
-    return re;
+    cout<<t->getname()<<" has b"
+    delete t;
   }
   ///////////////////////////////////////////
   void display(){
     people* t= ppl_head;
+    int q = 1;
+    cout<<"Day "<<day<<" has "<<size<<" queue(s)"<<endl;
     while(t){
+      cout<<q<<". ";
       t->display();
       t = t->move_next();
+      q = q+1;
     }
   }
-/////////////////////////////////////////////////////////////////////////////////
- 
+////////////////////////////////////////////////////////////////////////////
+  int check(long id){
+    people* t = ppl_head;
+    while(t){
+      if(t->get_id() == id){
+        t->display();
+        return 1;
+      }
+      t = t->move_next();
+    }
+    return 0;
+  }
+  //////////////////////////////
+  void rmv_all(){
+    while
+  }
 };
 

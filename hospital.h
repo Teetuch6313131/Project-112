@@ -46,8 +46,11 @@ public:
       prev = t;
       t = t->move_next();
     }
-    prev->add_next(t->move_next());
-    delete t;
+    if(t !== NULL){
+      t->rmv_all();
+      prev->add_next(t->move_next());
+      delete t;
+    }
   }
   //////////////////////////////////////////
   void addPPL(int day, people *ppl){
@@ -95,6 +98,34 @@ public:
       t->display();
       t = t->move_next();
     }
+  }
+  ////////////////////////////////////////////////
+  void display(int d){
+    Day* t = head_d;
+    cout<<hos_id<<"  "<<hos_name<<endl;
+    while(t->get_day() != d && t != NULL){
+      t = t->move_next();
+    }
+    if(t == NULL){
+      cout<<"Day "<<d<<" has 0 queue"<<endl;
+    }
+    else{
+      t->display();
+    }
+  }
+  ////////////////////////////////////////////////
+  int check(long id){
+    Day* t = head_d;
+    int c = 0;
+    while(t){
+      c = t->check(id);
+      if(c == 1){
+        cout<<"You registered for vacinate in Day: "<<t->get_day()<<endl;
+        return 1;
+      }
+      t = t->move_next();
+    }
+    return 0;
   }
 };
 

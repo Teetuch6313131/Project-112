@@ -29,7 +29,7 @@ public:
   void pop(){
     people* t = ppl_head;
     ppl_head = t->move_next();
-    cout<<t->getname()<<" has b"
+    cout<<t->getname()<<" has been vacinated"<<endl;
     delete t;
   }
   ///////////////////////////////////////////
@@ -58,7 +58,9 @@ public:
   }
   //////////////////////////////
   void rmv_all(){
-    while
+    while(t){
+      t->pop();
+    }
   }
 };
 

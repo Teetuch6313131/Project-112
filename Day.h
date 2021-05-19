@@ -20,7 +20,7 @@ public:
       return;
     }
     while(t->move_next() != NULL){
-      t->move_next();
+      t = t->move_next();
     }
     size = size+1;
     t->add_next(p);
@@ -37,6 +37,7 @@ public:
     people* t= ppl_head;
     int q = 1;
     cout<<"Day "<<day<<" has "<<size<<" queue(s)"<<endl;
+    cout<<"   ID            "<<"Name                                    "<<"Vaccine           "<<"Age  "<<endl;
     while(t){
       cout<<q<<". ";
       t->display();
@@ -71,7 +72,17 @@ public:
     while(ppl_head){
       t = ppl_head;
       ppl_head = t->move_next();
+      cout<<t->get_name()<<" got vaccinated!"<<endl;
       delete t;
+    }
+  }
+
+////////////////////////////////////////////////////////////
+  void giveAll(Linked_people* lp){
+    people* t = ppl_head;
+    while(t){
+      lp->push(t);
+      t = t->move_next();
     }
   }
 };

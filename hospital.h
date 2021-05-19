@@ -63,7 +63,6 @@ public:
     else{
       if(day_use[day-1] == 0){
         this->add_Day(day);
-        cout<<"Add after"<<endl;
         day_use[day-1] = 1;
       }
       while(t->get_day() != day){
@@ -97,7 +96,8 @@ public:
   ///////////////////////////////////////////////
   void display(){
     Day* t = head_d;
-    cout<<"Hospital ID : "<<hos_id<<" Hospital name : "<<hos_name<<endl;
+    cout<<"Hospital name : "<<hos_name<<endl;
+    cout<<"Hospital ID : "<<hos_id<<endl;
     while(t){
       t->display();
       t = t->move_next();
@@ -106,7 +106,8 @@ public:
   ////////////////////////////////////////////////
   void display(int d){
     Day* t = head_d;
-    cout<<hos_id<<"  "<<hos_name<<endl;
+    cout<<"Hospital name : "<<hos_name<<endl;
+    cout<<"Hospital ID : "<<hos_id<<endl;
     while(t->get_day() != d && t != NULL){
       t = t->move_next();
     }
@@ -141,6 +142,15 @@ public:
       t = t->move_next();
     }
     return 0;
+  }
+
+////////////////////////////////////////////
+  void giveAllPPL(Linked_people* lp){
+    Day* t = head_d;
+    while(t){
+      t->giveAll(lp);
+      t = t->move_next();
+    }
   }
 };
 

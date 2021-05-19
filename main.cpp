@@ -14,6 +14,8 @@ int main() {
   string name,un_disease,vaccine_name,hospital_name,vaccine_name_real,hospital_name_real,hospital_name_check;
   people* current_p;
   long hospital_id,pp_id,pp_id_check;
+  Linked_people *lp;
+
   do{ 
   cout<<endl<<"Day : "<<day<<endl;
   cout<<"================================================================"<<endl;
@@ -32,23 +34,38 @@ int main() {
   switch (o){
         case 1:
             cout<<"What is your name : ";
-            cin>> name;
+            cin>>name;
             do{
               y=1;
+              try{
+              
             cout<<"How old are you : ";
+            cin>>age;
             if(0<=age&&18>age)
             {
-              cout<<"People who have age 0 to 18 can't get vaccine"<<endl;
-              y=0;
+              throw 1;
+              
+              
             }
-            cin>> age;
-            }while(y==0)
-            cout<<"Your national ID number is : ";
+            
+              }
+              catch(int a)
+              {
+                if(a==1)
+                {
+                  cout<<"***People who have age 0 to 18 can't get vaccine***"<<endl;
+                }
+                y=0;
+              }
+            }while(y==0);
+            
+            cout<<"Your student ID number is : ";
             cin>>pp_id;
             
             cout<<"Do you have any underlying disease : ";
             cin>>un_disease;
             do{
+              try{
               y=1;
               cout<<"A : Sinovac"<<endl;
               cout<<"B : Astrazeneca"<<endl;
@@ -60,8 +77,7 @@ int main() {
               cin>>vaccine_name;
               if((vaccine_name.compare("A"))==0 && age>=60)
               {
-                cout<<endl<<"***Your age is too high!***"<<endl;
-                y=0;
+                throw 1;
               }
               else if((vaccine_name.compare("A"))==0)
               {
@@ -88,13 +104,26 @@ int main() {
                 vaccine_name_real="Moderna";
               }
               else{
+                throw 2;
+              }
+              }
+              catch(int a)
+              {
+                if(a==1)
+                {
+                    cout<<endl<<"***Your age is too high!***"<<endl;
+                
+                }
+                if(a==2)
+                {
+                   cout<<"You can type only A,B,C,D,F"<<endl;
+                }
                 y=0;
               }
-
             }while(y==0);
             cout<<endl<<"A : ";
             cout<<"Hospital name : Siriraj Hospital"<<endl;
-            cout<<"    Hospital ID: 24748"<<endl;
+            cout<<"    Hospital ID : 24748"<<endl;
             cout<<"    Address : 2 Wang Lang Road,"<<endl;
             cout<<"              Siriraj Subdistrict,"<<endl;
             cout<<"              Bangkok Noi District,"<<endl;
@@ -102,7 +131,7 @@ int main() {
             cout<<"              10700"<<endl;
             cout<<"B : ";
             cout<<"Hospital name : Golden Jubilee Medical Center"<<endl;
-            cout<<"    Hospital ID: 22952"<<endl;
+            cout<<"    Hospital ID : 22952"<<endl;
             cout<<"    Address : 999 Boromarajajonani Road,"<<endl;
             cout<<"              Salaya Subdistrict,"<<endl;
             cout<<"              Phutthamonthon District,"<<endl;
@@ -110,7 +139,7 @@ int main() {
             cout<<"              73170"<<endl;
             cout<<"C : ";
             cout<<"Hospital name : Samut Sakhon Hospital"<<endl;
-            cout<<"    Hospital ID: 10734"<<endl;
+            cout<<"    Hospital ID : 10734"<<endl;
             cout<<"    Address : 1500 Ekachai Road,"<<endl;
             cout<<"              Mahachai Subdistrict,"<<endl;
             cout<<"              Mueang Samut Sakhon District,"<<endl;
@@ -234,7 +263,13 @@ int main() {
               //delete day past
             break ;
         case 5:
-        
+              for(int i = 0; i < 3; i++){
+                H[i].giveAllPPL(lp);
+              }
+              lp->selection_sort();
+              cout<<"Sorted by Age"<<endl;
+              lp->display();
+        break;       
 
         case 0: 
             cout<<"Goodbye, Thank you for coming to get vaccinated."<<endl;
@@ -259,7 +294,3 @@ int main() {
 }*/
 
 
-
-
-  
-   

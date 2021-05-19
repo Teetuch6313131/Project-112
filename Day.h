@@ -1,16 +1,16 @@
 #include "people.h"
 using namespace std;
-class Day{
+class Day: public NODE<Day>{
   int day,size;
-  Day *next;
+  //Day *next;
   people* ppl_head;
 public:
-  Day(int x){day = x;size = 0;}
-  ~Day();
+  Day(int x):NODE(){day = x;size = 0;ppl_head = NULL;}
+  ~Day(){}
   int get_day(){return day;}
   int get_size(){return size;}
-  Day* move_next(){return next;}
-  void add_next(Day* n){next = n;}
+  //Day* move_next(){return next;}
+  //void add_next(Day* n){next = n;}
   ////////////////////////////////////////////////
   void add(people* p){
     people* t = ppl_head;
@@ -29,7 +29,7 @@ public:
   void pop(){
     people* t = ppl_head;
     ppl_head = t->move_next();
-    cout<<t->getname()<<" has been vacinated"<<endl;
+    cout<<t->get_name()<<" has been vacinated!"<<endl;
     delete t;
   }
   ///////////////////////////////////////////
@@ -49,6 +49,15 @@ public:
     people* t = ppl_head;
     while(t){
       if(t->get_id() == id){
+        if(t->get_hos() == 24748){
+          cout<<"Hospital: Siriraj Hospital"<<endl;
+        }
+        else if(t->get_hos() == 22952){
+          cout<<"Hospital: Golden Jubilee Medical Center"<<endl; 
+        }
+        else if(t->get_hos() == 10734){
+          cout<<"Hospital: Golden Samut Sakhon Hospital"<<endl;
+        }
         t->display();
         return 1;
       }
@@ -58,8 +67,11 @@ public:
   }
   //////////////////////////////
   void rmv_all(){
-    while(t){
-      t->pop();
+    people* t;
+    while(ppl_head){
+      t = ppl_head;
+      ppl_head = t->move_next();
+      delete t;
     }
   }
 };

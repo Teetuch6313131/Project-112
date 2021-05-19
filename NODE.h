@@ -1,14 +1,15 @@
 using namespace std;
+
+template <class T>
 class NODE{
   protected:
-    NODE* next;
+    T* next;
   public:
     NODE(){
       next = NULL;
     }
-    void add_next(NODE* n){
+    void add_next(T* n){
       next = n;
     }
-    NODE* move_next(){return next;};
-    ~NODE();
+    T* move_next(){return next;};
 };

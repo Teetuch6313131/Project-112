@@ -46,7 +46,7 @@ public:
       prev = t;
       t = t->move_next();
     }
-    if(t !== NULL){
+    if(t != NULL){
       t->rmv_all();
       prev->add_next(t->move_next());
       delete t;
@@ -57,15 +57,13 @@ public:
     Day* t = head_d;
     if(t == NULL){
       this->add_Day(day);
-      cout<<"Add "<<day-1<<endl;
       day_use[day-1] = 1;
       t = head_d;
     }
     else{
       if(day_use[day-1] == 0){
-        cout<<"Add "<<day-1<<endl;
         this->add_Day(day);
-        cout<<"Add "<<day-1<<endl;
+        cout<<"Add after"<<endl;
         day_use[day-1] = 1;
       }
       while(t->get_day() != day){
@@ -81,19 +79,25 @@ public:
       while(t->get_day() != day && t != NULL){
         t = t->move_next();
       }
-      if(t == NULL){
-        this->add_Day(day);
-        t = head_d;
+      if(t != NULL){
+        t->pop();
       }
-      while(t->get_day() != day){
+  }
+  ///////////////////////////////////////////////
+  void rmvPPL_all(int day){
+    Day* t = head_d;
+    if(day_use[day-1] == 1){
+      while(t){
+        if(t->get_day() == day){break;}
         t = t->move_next();
       }
-    t->pop();
+      t->rmv_all();
+    }
   }
   ///////////////////////////////////////////////
   void display(){
     Day* t = head_d;
-    cout<<hos_id<<"  "<<hos_name<<endl;
+    cout<<"Hospital ID : "<<hos_id<<" Hospital name : "<<hos_name<<endl;
     while(t){
       t->display();
       t = t->move_next();
@@ -122,6 +126,17 @@ public:
       if(c == 1){
         cout<<"You registered for vacinate in Day: "<<t->get_day()<<endl;
         return 1;
+      }
+      t = t->move_next();
+    }
+    return 0;
+  }
+  ////////////////////////////////
+  int check_day(int d){
+    Day* t = head_d;
+    while(t){
+      if(t->get_day() == d){
+        return t->get_size();
       }
       t = t->move_next();
     }

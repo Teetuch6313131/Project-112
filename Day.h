@@ -37,7 +37,7 @@ public:
     people* t= ppl_head;
     int q = 1;
     cout<<"Day "<<day<<" has "<<size<<" queue(s)"<<endl;
-    cout<<"   ID            "<<"Name                                    "<<"Vaccine           "<<"Age  "<<endl;
+    cout<<"   ID            "<<"Name                          "<<"Vaccine           "<<"Age  "<<endl;
     while(t){
       cout<<q<<". ";
       t->display();
@@ -52,15 +52,15 @@ public:
       if(t->get_id() == id){
         if(t->get_hos() == 24748){
           cout<<"Hospital: Siriraj Hospital"<<endl;
-          cout<<"ID            "<<"Name                                    "<<"Vaccine           "<<"Age  "<<endl;
+          cout<<"ID            "<<"Name                          "<<"Vaccine           "<<"Age  "<<endl;
         }
         else if(t->get_hos() == 22952){
           cout<<"Hospital: Golden Jubilee Medical Center"<<endl;
-          cout<<"ID            "<<"Name                                    "<<"Vaccine           "<<"Age  "<<endl; 
+          cout<<"ID            "<<"Name                          "<<"Vaccine           "<<"Age  "<<endl; 
         }
         else if(t->get_hos() == 10734){
           cout<<"Hospital: Golden Samut Sakhon Hospital"<<endl;
-          cout<<"ID            "<<"Name                                    "<<"Vaccine           "<<"Age  "<<endl;
+          cout<<"ID            "<<"Name                          "<<"Vaccine           "<<"Age  "<<endl;
         }
         t->display();
         return 1;

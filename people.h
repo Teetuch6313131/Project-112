@@ -21,7 +21,7 @@ class people: public NODE<people>{
     //void add_next(people* n){next = n;}
 
     void display(){
-      cout<<left<<setw(14)<<people_id<<setw(40)<<name<<setw(18)<<vaccine_type<<setw(4)<<age<<endl;
+      cout<<left<<setw(14)<<people_id<<setw(30)<<name<<setw(18)<<vaccine_type<<setw(4)<<age<<endl;
     }
 
     int get_age(){return age;}

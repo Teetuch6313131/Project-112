@@ -10,33 +10,11 @@ class my_cin: public exception
 {
     virtual const char* what() const throw(){
       return "Sorry Not Number!! Please try again";
-    }
+}
     
 }cinf;
 
-
-void bubble(Vac_Infected *V){
-  for(int i = 0; i < 6; i++){
-    V[i].cal_per();
-  }
-  int i,j,swap;
-  for(i = 0; i < 5; i++){
-    swap =0;
-    for(j = 0; j < 5-i; j++){
-      if(V[j].get_per() >= V[j+1].get_per()){
-        Vac_Infected tempt(V[j].get_name());
-        tempt.set(V[j].get_name(),V[j].get_count(),V[j].get_count_all(),V[j].get_per());
-        V[j].set(V[j+1].get_name(),V[j+1].get_count(),V[j+1].get_count_all(),V[j+1].get_per());
-        V[j+1].set(tempt.get_name(),tempt.get_count(),tempt.get_count_all(),tempt.get_per());
-        swap = 1;
-      }
-    }
-    if(swap == 0) break;
-  }
-  for(int i = 0; i < 6; i++){
-    V[i].cal_per();
-  }
-}
+void bubble(Vac_Infected*);
 
 
 int main() {
@@ -142,7 +120,7 @@ int main() {
                 }
                 if(a==2)
                 {
-                   cout<<"You can type only A,B,C,D,F"<<endl;
+                   cout<<"You can type only A,B,C,D,E,F"<<endl;
                 }
                 y=0;
               }
@@ -268,7 +246,7 @@ int main() {
             {
               hospital_array=1;
             }
-            else if((hospital_name_check.compare("C"))==0)
+            else
             {
               hospital_array=2;
             }
@@ -330,7 +308,28 @@ catch (exception& e) {
               } 
 }
 
-
+void bubble(Vac_Infected *V){
+  for(int i = 0; i < 6; i++){
+    V[i].cal_per();
+  }
+  int i,j,swap;
+  for(i = 0; i < 5; i++){
+    swap =0;
+    for(j = 0; j < 5-i; j++){
+      if(V[j].get_per() >= V[j+1].get_per()){
+        Vac_Infected tempt(V[j].get_name());
+        tempt.set(V[j].get_name(),V[j].get_count(),V[j].get_count_all(),V[j].get_per());
+        V[j].set(V[j+1].get_name(),V[j+1].get_count(),V[j+1].get_count_all(),V[j+1].get_per());
+        V[j+1].set(tempt.get_name(),tempt.get_count(),tempt.get_count_all(),tempt.get_per());
+        swap = 1;
+      }
+    }
+    if(swap == 0) break;
+  }
+  for(int i = 0; i < 6; i++){
+    V[i].cal_per();
+  }
+}
 
 
 

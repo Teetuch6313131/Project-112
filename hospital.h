@@ -72,7 +72,7 @@ public:
     t->add(ppl);
   }
   ///////////////////////////////////////////////
-  void rmvPPL(int day){
+  /*void rmvPPL(int day){
     Day* t = head_d;
       while(t->get_day() != day && t != NULL){
         t = t->move_next();
@@ -80,7 +80,7 @@ public:
       if(t != NULL){
         t->pop();
       }
-  }
+  }*/
   ///////////////////////////////////////////////
   void rmvPPL_all(int day, Vac_Infected *V){
     Day* t = head_d;
@@ -93,7 +93,7 @@ public:
     }
   }
   ///////////////////////////////////////////////
-  void display(){
+  /*void display(){
     Day* t = head_d;
     cout<<"Hospital name : "<<hos_name<<endl;
     cout<<"Hospital ID : "<<hos_id<<endl;
@@ -101,7 +101,7 @@ public:
       t->display();
       t = t->move_next();
     }
-  }
+  }*/
   ////////////////////////////////////////////////
   void display(int d){
     Day* t = head_d;

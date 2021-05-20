@@ -1,4 +1,3 @@
-//#include"L_D.h"
 #include "Day.h"
 using namespace std;
 
@@ -39,7 +38,7 @@ public:
     }
   }
   //////////////////////////////////////
-  void rmv_day(int x){
+  void rmv_day(int x, Vac_Infected *V){
     Day* t = head_d;
     Day *prev = head_d;
     while(t->get_day() != x && t != NULL){
@@ -47,7 +46,7 @@ public:
       t = t->move_next();
     }
     if(t != NULL){
-      t->rmv_all();
+      t->rmv_all(V);
       prev->add_next(t->move_next());
       delete t;
     }
@@ -83,14 +82,14 @@ public:
       }
   }
   ///////////////////////////////////////////////
-  void rmvPPL_all(int day){
+  void rmvPPL_all(int day, Vac_Infected *V){
     Day* t = head_d;
     if(day_use[day-1] == 1){
       while(t){
         if(t->get_day() == day){break;}
         t = t->move_next();
       }
-      t->rmv_all();
+      t->rmv_all(V);
     }
   }
   ///////////////////////////////////////////////
@@ -145,13 +144,6 @@ public:
   }
 
 ////////////////////////////////////////////
-  void giveAllPPL(Linked_people* lp){
-    Day* t = head_d;
-    while(t){
-      t->giveAll(lp);
-      t = t->move_next();
-    }
-  }
 };
 
 

@@ -1,21 +1,53 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-//#include<cctype>
-//#include<cstdio>
+#include <exception> 
+
 using namespace std;
 #include"hospital.h"
+
+class my_cin: public exception
+{
+    virtual const char* what() const throw(){
+      return "Sorry Not Number!! Please try again";
+    }
+    
+}cinf;
+
+
+void bubble(Vac_Infected *V){
+  for(int i = 0; i < 6; i++){
+    V[i].cal_per();
+  }
+  int i,j,swap;
+  for(i = 0; i < 5; i++){
+    swap =0;
+    for(j = 0; j < 5-i; j++){
+      if(V[j].get_per() >= V[j+1].get_per()){
+        Vac_Infected tempt(V[j].get_name());
+        tempt.set(V[j].get_name(),V[j].get_count(),V[j].get_count_all(),V[j].get_per());
+        V[j].set(V[j+1].get_name(),V[j+1].get_count(),V[j+1].get_count_all(),V[j+1].get_per());
+        V[j+1].set(tempt.get_name(),tempt.get_count(),tempt.get_count_all(),tempt.get_per());
+        swap = 1;
+      }
+    }
+    if(swap == 0) break;
+  }
+  for(int i = 0; i < 6; i++){
+    V[i].cal_per();
+  }
+}
 
 
 int main() {
   int limit_per_day = 3,checkH;
   int o,age,y,daycheck,day=1,check,i,TTTT=1,day_come,hospital_array;
   hospital H[3] = {{24748,"Siriraj Hospital"},{22952,"Golden Jubilee Medical Center"},{10734,"Samut Sakhon Hospital"}};
+  Vac_Infected V[6] = {{"Sinovac"},{"Astrazeneca"},{"Pfizer"},{"Johnson & Johnson"},{"Sputnik V"},{"Moderna"}};
   string name,un_disease,vaccine_name,hospital_name,vaccine_name_real,hospital_name_real,hospital_name_check;
   people* current_p;
   long hospital_id,pp_id,pp_id_check;
-  Linked_people *lp;
-
+  try{
   do{ 
   cout<<endl<<"Day : "<<day<<endl;
   cout<<"================================================================"<<endl;
@@ -24,46 +56,40 @@ int main() {
   cout <<"Type 2 for Check the queue of the hospital"<<endl;
   cout <<"Type 3 for Check the vaccination location of the reservation"<<endl;
   cout <<"Type 4 for Pass a day"<<endl;
+  cout <<"Type 5 for showing statics of people infected after vacinated"<<endl;
   cout <<"Type 0 for Exit the program"<<endl;
   cout<<"================================================================"<<endl;
   cin >> o;
+  if(cin.fail()) throw cinf;
   cout<<endl;
   /*people *p3 = new people(3,1,"YYYZZ","T",age);
   H[0].addPPL(1, p3);*/
 
   switch (o){
         case 1:
+        if(day<31)
+        {
             cout<<"What is your name : ";
             cin>>name;
+            //try{
             do{
               y=1;
-              try{
               
-            cout<<"How old are you : ";
+              cout<<"How old are you : ";
             cin>>age;
+            if(cin.fail()) throw cinf;
             if(0<=age&&18>age)
             {
-              throw 1;
-              
-              
-            }
-            
-              }
-              catch(int a)
-              {
-                if(a==1)
-                {
                   cout<<"***People who have age 0 to 18 can't get vaccine***"<<endl;
-                }
                 y=0;
-              }
+            }
             }while(y==0);
-            
             cout<<"Your student ID number is : ";
             cin>>pp_id;
-            
+            if(cin.fail()) throw cinf;
             cout<<"Do you have any underlying disease : ";
             cin>>un_disease;
+            
             do{
               try{
               y=1;
@@ -153,13 +179,13 @@ int main() {
               hospital_name_real="Siriraj Hospital";
               hospital_id=24748;
             }
-            if((hospital_name.compare("B"))==0)
+            else if((hospital_name.compare("B"))==0)
             {
               hospital_array=1;
               hospital_name_real="Golden Jubilee Medical Center";
               hospital_id=22952;
             }
-            if((hospital_name.compare("C"))==0)
+            else
             {
               hospital_array=2;
               hospital_name_real="Samut Sakhon Hospital";
@@ -169,6 +195,7 @@ int main() {
               y=1;
             cout<<endl<<"When do you come to get vaccine (type date only 1-31)(You cannot book today's queue.) : ";
             cin>>day_come;
+            if(cin.fail()) throw cinf;
             try{
             if(day_come<day)
             {
@@ -202,10 +229,20 @@ int main() {
             //cout<<endl<<"================================================================"<<endl;
             cout<<endl<<"***Complete vaccine reservation***"<<endl;
             cout<<"Name : "<<name<<endl<<"Age : "<<age<<endl;
+            cout<<"ID : "<<pp_id<<endl;
             cout<<"Underlying disease : "<<un_disease<<endl;
             cout<<"Selected vaccines : "<<vaccine_name_real<<endl;
+            for(int i = 0; i< 6; i++){
+              if(V[i].get_name() == vaccine_name_real){
+                V[i].add_count_all();
+              }
+            }
             cout<<"Appointment date : Day "<<day_come<<endl;
             cout<<"***Please get enough rest and arrive at the hospital before the appointment time.***"<<endl;
+        }
+        else{
+          cout<<"You can't book vaccine this day"<<endl;
+        }
 
         break;
               
@@ -221,6 +258,7 @@ int main() {
             cin>>hospital_name_check;
             cout <<"Which Days you want to check (1-31) : ";
             cin>>daycheck;
+            if(cin.fail()) throw cinf;
             cout<<endl;
             if((hospital_name_check.compare("A"))==0)
             {
@@ -247,6 +285,7 @@ int main() {
         case 3:
             cout<<"which ID you want to check : ";
             cin>>pp_id_check;
+            if(cin.fail()) throw cinf;
             check = 0;
             for(i = 0; i < 3; i++){
               check = H[i].check(pp_id_check);
@@ -257,18 +296,24 @@ int main() {
         case 4:
             //while()
               for(int i = 0; i< 3 ;i++){
-                H[i].rmvPPL_all(day);
+                H[i].rmvPPL_all(day,V);
               }
+              if (day==31)
+              {
+                cout<<"Goodbye, Thank you for coming to get vaccinated."<<endl;
+            return 0 ;
+              }
+              else{
               day++;
+              }
               //delete day past
             break ;
         case 5:
-              for(int i = 0; i < 3; i++){
-                H[i].giveAllPPL(lp);
+              bubble(V);
+              cout<<"After sorting the percent of getting infected after vacinated:"<<endl;
+              for(int i = 0; i < 6; i++){
+                cout<<V[i].get_name()<<" infected "<<fixed<<setprecision(2)<<V[i].get_per()<<" %"<<V[i].get_count()<<endl;
               }
-              lp->selection_sort();
-              cout<<"Sorted by Age"<<endl;
-              lp->display();
         break;       
 
         case 0: 
@@ -280,6 +325,15 @@ int main() {
   }
   }while(TTTT);
 }
+catch (exception& e) {
+              cout << e.what() << endl; 
+              } 
+}
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////
   /*people *p = new people(1,1,"YXX","X",age);
   people *p2 = new people(2,1,"YYY","Z",age);

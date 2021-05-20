@@ -21,7 +21,7 @@ class people: public NODE<people>{
     //void add_next(people* n){next = n;}
 
     void display(){
-      cout<<setw(-14)<<people_id<<setw(-40)<<name<<setw(-18)<<vaccine_type<<setw(-5)<<age<<endl;
+      cout<<left<<setw(14)<<people_id<<setw(40)<<name<<setw(18)<<vaccine_type<<setw(4)<<age<<endl;
     }
 
     int get_age(){return age;}
@@ -37,90 +37,25 @@ class people: public NODE<people>{
     string get_un(){return un_disease;}
 };
 
-class Linked_people: public NODE<people>{
-    people* p_head;
-    int size;
-  public:
-    Linked_people():NODE(){p_head = NULL;size = 0;}
-    ~Linked_people(){}
+class Vac_Infected{
+  string vac_name;
+  int count,count_all;
+  float percent;
+public:
+  Vac_Infected(string n){vac_name = n; count = 0; percent = 0; count_all = 0;}
+  void infected(){count = count+1;}
+  void add_count_all(){count_all = count_all+1;}
+  void set(string n,int c, int call,float p){vac_name = n;count = c; percent = p; count_all = call;}
 
-    void push(people *p){
-      people *t = new people(p->get_id(), p->get_hos(), p->get_name(), p->get_vac(), p->get_age(), p->get_un());
-      people *h = p_head;
-      if(h == NULL){
-        h = t;
-      }
-      else{
-        while(h->move_next()){
-          h = h->move_next();
-        }
-        h->add_next(t);
-      }
-      cout<<"push"<<endl;
-      size = size+1;
-    }
-/////////////////////////////////////////////////////////
-  void swap(int x,int y){
-    people *t1,*t2,*t3,*t4,*t5;
-    people *xp = p_head;
-    people *yp = p_head;
-    for(int i = 1; i < y; i++){
-      yp = yp->move_next();
-    }
-    if(x != 0){
-      for(int i = 1; i < x; i++){
-        xp = xp->move_next();
-      }
-    }
-    t1 = xp;
-    t2 = yp;
+  int get_count(){return count;}
+  int get_count_all(){return count_all;}
 
-    if(x == 0){
-      t3 = t2->move_next();
-      t3 = t3->move_next();
-      t4 = p_head->move_next();
-      p_head = yp->move_next();
-      yp->add_next(t1->move_next());
-      t1->add_next(t3);
-      p_head->add_next(t4);
-    }
-    else{
-      t3 = t2->move_next();
-      t3 = t3->move_next();
-      t4 = t1->move_next();
-      t5 = t4->move_next();
-      xp->add_next(yp->move_next());
-      yp->move_next()->add_next(t5);
-      t2->add_next(t4);
-      t4->add_next(t3);
-    }
-  }
-/////////////////////////////////////////////////////////
-    void selection_sort(){
-      people *h = p_head;
-      int i,j,min_age,index2;
-      for(i = 0; i < size; i++){
-        for(j = 0; j < i; j++){
-          h = h->move_next();
-        }
-        min_age = h->get_age();
-        index2 = i;
-        for(j = i; i < size; j++){
-          if(h->get_age() < min_age){
-            index2 =j;
-            min_age = h->get_age();
-          }
-        }
-        if(i != index2){this->swap(i,index2);}
-      }    
-    }
-  ///////////////////////////////////////////////////////
-  void display(){
-    people *h = p_head;
-    while(h){
-      h->display();
-      cout<<"Display"<<endl;
-      h = h->move_next();
-    }
+  string get_name(){return vac_name;}
+
+  float get_per(){return percent;}
+
+  void cal_per(){
+    if(count == 0){percent = 0;}
+    else{percent = (count/count_all)*100;}
   }
 };

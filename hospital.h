@@ -68,41 +68,18 @@ public:
         t = t->move_next();
       }
     }
-    // know t
     t->add(ppl);
   }
-  ///////////////////////////////////////////////
-  /*void rmvPPL(int day){
-    Day* t = head_d;
-      while(t->get_day() != day && t != NULL){
-        t = t->move_next();
-      }
-      if(t != NULL){
-        t->pop();
-      }
-  }*/
-  ///////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
   void rmvPPL_all(int day, Vac_Infected *V){
     Day* t = head_d;
     if(day_use[day-1] == 1){
-      while(t){
-        if(t->get_day() == day){break;}
-        t = t->move_next();
-      }
       t->rmv_all(V);
+      head_d = t->move_next();
+      delete t;
     }
   }
-  ///////////////////////////////////////////////
-  /*void display(){
-    Day* t = head_d;
-    cout<<"Hospital name : "<<hos_name<<endl;
-    cout<<"Hospital ID : "<<hos_id<<endl;
-    while(t){
-      t->display();
-      t = t->move_next();
-    }
-  }*/
-  ////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////
   void display(int d){
     Day* t = head_d;
     cout<<"Hospital name : "<<hos_name<<endl;

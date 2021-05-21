@@ -2,15 +2,13 @@
 using namespace std;
 class Day: public NODE<Day>{
   int day,size;
-  //Day *next;
+
   people* ppl_head;
 public:
   Day(int x):NODE(){day = x;size = 0;ppl_head = NULL;}
   ~Day(){}
   int get_day(){return day;}
   int get_size(){return size;}
-  //Day* move_next(){return next;}
-  //void add_next(Day* n){next = n;}
   ////////////////////////////////////////////////
   void add(people* p){
     people* t = ppl_head;
@@ -84,7 +82,7 @@ public:
       {
       random=(rand()%1000)+1 ;
       ///////////////////////////
-      if(random>550)
+      if(random>550)//550
       {
         tid="Infected Covid-19";
       }
@@ -97,7 +95,7 @@ public:
       {
       random=(rand()%1000)+1 ;
       ///
-      if(random>900)
+      if(random>900)//900
       {
         tid="Infected Covid-19";
       }
@@ -109,7 +107,7 @@ public:
       if((t->get_vac().compare("Pfizer"))==0)
       {
       random=(rand()%1000)+1 ;
-      if(random>950)
+      if(random>950)//950
       {
         tid="Infected Covid-19";
       }
@@ -133,7 +131,7 @@ public:
       if((t->get_vac().compare("Sputnik V"))==0)
       {
       random=(rand()%1000)+1 ;
-      if(random>914)
+      if(random>914)//914
       {
         tid="Infected Covid-19";
       }
@@ -145,7 +143,7 @@ public:
       if((t->get_vac().compare("Moderna"))==0)
       {
       random=(rand()%1000)+1 ;
-      if(random>945)
+      if(random>945)//945
       {
         tid="Infected Covid-19";
       }
@@ -155,7 +153,7 @@ public:
       }
       }
       if(tid=="Infected Covid-19"){
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 6; i++){
           if((t->get_vac().compare(V[i].get_name()))==0){V[i].infected();}
         }
       }
@@ -171,15 +169,13 @@ public:
       {
         hn="Samut Sakhon Hospital";
       }
-      /*cout<<"Name : "<<name<<" ID : "<<people_id<<" underlying disease : "<<un_disease<<" Hospital Name : "<<hn<<" Have been vaccinated : "<<t->get_vac()<<" infectation : "<<tid<<endl;*/
       cout<<"Name : "<<t->get_name()<<endl<<"Age : "<<t->get_age()<<endl;
       cout<<"ID : "<<t->get_id()<<endl;
       cout<<"Underlying disease : "<<t->get_un()<<endl;
       cout<<"Hospital Name : "<<hn<<endl;
       cout<<"Have been vaccinated : "<<t->get_vac()<<endl;
       cout<<"Infectation : "<<tid<<endl<<endl;
-    }/*while*/
-      //
+    }
       delete t;
   }
 
